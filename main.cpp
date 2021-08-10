@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
+#include "database.h"
 using namespace std;
-
 
 /*
 This map will have the command as the key, and the
@@ -80,7 +80,7 @@ void createAccount(){
 }
 
 int main(){
-
+    Database db;
     displayWelcomeMenu();
     start();
 }
