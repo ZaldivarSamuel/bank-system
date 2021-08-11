@@ -3,13 +3,13 @@
 class Database{
 
 public:
-    sqlite3 *db;
-    int rc;
-
+    
     Database();
+    void createAccount();
 
 private:
-     char *zErrMsg = 0;
+    sqlite3 *db;
+    int rc;
+    char *zErrMsg = 0;
     void createTables();
-   // int callback(void *data, int argc, char **argv, char **azColName);
 };

@@ -22,6 +22,11 @@ void createAccount();
 
 /****************************/
 
+/*
+Global Variables
+*/
+
+Database db;
 
 /*
 Menu Functions
@@ -77,10 +82,10 @@ void processCommand(){
 
 void createAccount(){
     cout << "Creating account...." << endl;
+    db.createAccount();
 }
 
 int main(){
-    Database db;
     displayWelcomeMenu();
     start();
 }

@@ -13,7 +13,10 @@ static int callback(void *data, int argc, char **argv, char **azColName){
    return 0;
 }
 
-
+/*
+Database class constructor.
+Open bank database and create tables if neccesary
+*/
 Database::Database(){
     rc = sqlite3_open("bank.db", &db);
 
@@ -22,15 +25,34 @@ Database::Database(){
       exit(1);
    } else {
       fprintf(stderr, "Opened database successfully\n");
+      //TODO: Check if tables are already created in database
       createTables();
    }
 }
+
+/*
+Create a new bank account.
+Each account will have an ID and the amount saved in the account.
+*/
+void Database::createAccount(){
+   char const *sql = "INSERT INTO Accounts (Amount) VALUES(0.00);";
+   rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+
+   if( rc != SQLITE_OK ){
+      fprintf(stderr, "SQL error: %s\n", zErrMsg);
+      sqlite3_free(zErrMsg);
+   } else {
+      fprintf(stdout, "Records created successfully\n");
+   }
+}
+
+
 
 void Database::createTables(){
     std::cout << "Creating Tables" << std::endl;
 
     char const *sql = "CREATE TABLE Accounts("  \
-      "ID INT PRIMARY KEY     NOT NULL," \
+      "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," \
       "Amount           DOUBLE    NOT NULL );";
 
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
