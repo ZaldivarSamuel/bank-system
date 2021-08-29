@@ -42,7 +42,7 @@ void Database::createAccount(){
       fprintf(stderr, "SQL error: %s\n", zErrMsg);
       sqlite3_free(zErrMsg);
    } else {
-      fprintf(stdout, "Records created successfully\n");
+      std::cout << "Created account with id: " << sqlite3_last_insert_rowid(db) << std::endl;
    }
 }
 
